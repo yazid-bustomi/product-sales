@@ -1,6 +1,7 @@
 <?php
 include('../db.php');
 
+// get data yang sudah di inputkan berdasarkan ID
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM produk WHERE id_produk = $id";
@@ -8,6 +9,7 @@ if (isset($_GET['id'])) {
     $row = $result->fetch_assoc();
 }
 
+// edit data dari form yang sudah di submit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_produk = $_POST['nama_produk'];
     $harga = $_POST['harga'];
@@ -56,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="keterangan" class="form-label">Keterangan</label>
             <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?= $row['keterangan'] ?>">
         </div>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+        <button type="submit" class="btn btn-primary me-3"><i class="fas fa-save"></i> Simpan</button>
         <a href="index.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
     </form>
 </div>

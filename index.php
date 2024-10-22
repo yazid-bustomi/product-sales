@@ -16,7 +16,25 @@ while ($row = $produkData->fetch_assoc()) {
 }
 
 // Query transaksi untuk Chart
+$query = "SELECT DATE_FORMAT(tanggal, '%Y-%m') AS bulan, SUM(total_harga) AS total 
+          FROM transaksi 
+          GROUP BY bulan 
+          ORDER BY bulan ASC";
+$result = $conn->query($query);
 
+$data = [];
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+}
+
+$labels = [];
+$totals = [];
+
+// Ambil data bulan dan total transaksi untuk chart
+foreach ($data as $item) {
+    $labels[] = $item['bulan'];
+    $totals[] = floatval($item['total']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +109,7 @@ while ($row = $produkData->fetch_assoc()) {
     </div>
 
     <script>
+        // Grafik Produk
         const ctProd = document.getElementById('produkChart').getContext('2d');
         const produkChart = new Chart(ctProd, {
             type: 'bar',
@@ -99,8 +118,8 @@ while ($row = $produkData->fetch_assoc()) {
                 datasets: [{
                     label: 'Stok Produk',
                     data: <?= json_encode($produkStok) ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235)',
+                    borderColor: 'rgba(0, 87, 152)',
                     borderWidth: 1
                 }]
             },
@@ -114,7 +133,48 @@ while ($row = $produkData->fetch_assoc()) {
             }
         });
 
-       
+
+
+        // Grafik Transaksi
+        const labels = <?= json_encode($labels) ?>;
+        const totals = <?= json_encode($totals) ?>;
+
+        const ctxTransaksi = document.getElementById('transaksiChart').getContext('2d');
+        new Chart(ctxTransaksi, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Transaksi (Rp)',
+                    data: totals,
+                    backgroundColor: 'rgba(125, 217, 255)',
+                    borderColor: 'rgba(0, 140, 235)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Transaksi Per Bulan'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

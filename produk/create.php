@@ -1,6 +1,7 @@
 <?php
 include('../db.php');
 
+// Input data dari request yang di terima
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_produk = $_POST['nama_produk'];
     $harga = $_POST['harga'];
