@@ -53,8 +53,8 @@ $result = $conn->query($sql);
                         <td><?= $row['jumlah'] ?></td>
                         <td>Rp <?= number_format($row['total_harga'], '0', ',', '.')  ?></td>
                         <td>
-                            <a href="edit.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="delete.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')">Hapus</a>
+                            <a href="edit.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="delete.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')"><i class="fas fa-trash"></i> Hapus</a>
                         </td>
                     </tr>
                     <?php $no++ ?>

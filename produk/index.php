@@ -38,7 +38,7 @@ $result = $conn->query($sql);
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Stok</th>
