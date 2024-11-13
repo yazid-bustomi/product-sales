@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $keterangan = $_POST['keterangan'];
 
     // kondisi jika input harga dan stok kurang dari 0
-    if ($harga < 0 || $stok < 0) {
+    if ($harga <= 0 || $stok < 0) {
         $error = "Harga atau Stok tidak boleh kurang dari 0";
     } else{
 
