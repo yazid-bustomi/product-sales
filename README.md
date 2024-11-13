@@ -17,7 +17,7 @@ Aplikasi ini merupakan hasil dari **final test IT** untuk posisi **IT Staff** di
 ## Cara Penggunaan
 
 ### 1. Instalasi
-   - Pastikan Anda sudah memiliki **web server** seperti **Apache** dengan **PHP** dan **MySQL**. Anda bisa menggunakan **XAMPP** untuk mempermudah proses ini.
+   - Pastikan sudah memiliki **web server** seperti **Apache** dengan **PHP** dan **MySQL**. Anda bisa menggunakan **XAMPP** untuk mempermudah proses ini.
    - Ekstrak file project ke dalam direktori web server.
    - Buat **database** baru di MySQL dan impor file **database.sql** yang tersedia dalam project.
    - Konfigurasi koneksi database pada file `db.php` agar aplikasi bisa terhubung dengan database.
