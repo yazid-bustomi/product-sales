@@ -1,7 +1,9 @@
 <?php
 include '../db.php';
 
-$sql = "SELECT * FROM transaksi";
+$sql = "SELECT transaksi.id_transaksi, transaksi.jumlah, transaksi.total_harga, produk.nama_produk 
+        FROM transaksi 
+        JOIN produk ON transaksi.id_produk = produk.id_produk";
 $result = $conn->query($sql);
 
 ?>
@@ -47,9 +49,9 @@ $result = $conn->query($sql);
                 <?php while ($row = $result->fetch_assoc()) : ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?= $row['id_produk'] ?></td>
+                        <td><?= $row['nama_produk'] ?></td> 
                         <td><?= $row['jumlah'] ?></td>
-                        <td><?= $row['total_harga'] ?></td>
+                        <td>Rp <?= number_format($row['total_harga'], '0', ',', '.')  ?></td>
                         <td>
                             <a href="edit.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-warning btn-sm">Edit</a>
                             <a href="delete.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')">Hapus</a>
