@@ -16,13 +16,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stok = $_POST['stok'];
     $keterangan = $_POST['keterangan'];
 
-    $sql = "UPDATE produk SET nama_produk = '$nama_produk', harga = '$harga', stok = '$stok', keterangan = '$keterangan' WHERE id_produk = $id";
-    if ($conn->query($sql) === TRUE) {
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+    // Kondisi jika input harga atau stok kurang dari 0
+    if($harga = 0 || $stok =0){
+        $error = "Harga atau Stok tidak boleh kurang dari 0";
+    }else{
+
+        // Update data
+        $sql = "UPDATE produk SET nama_produk = '$nama_produk', harga = '$harga', stok = '$stok', keterangan = '$keterangan' WHERE id_produk = $id";
+        if ($conn->query($sql) === TRUE) {
+            header("Location: index.php");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
+
 }
 ?>
 
@@ -41,6 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container mt-5">
     <h2>Edit Produk</h2>
+
+    <?php if(isset($error)) :?>
+        <div class="alert alert-danger"><?= $error ?></div>
+    <?php endif; ?>
+
     <form action="edit.php?id=<?= $row['id_produk'] ?>" method="POST">
         <div class="mb-3">
             <label for="nama_produk" class="form-label">Nama Produk</label>

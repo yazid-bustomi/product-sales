@@ -1,7 +1,7 @@
 <?php
 include '../db.php';
 
-// Query database
+// Query tabel produk
 $sql = "SELECT * FROM produk";
 $result = $conn->query($sql);
 

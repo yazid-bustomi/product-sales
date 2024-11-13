@@ -1,6 +1,7 @@
 <?php
 include '../db.php';
 
+// Query tabel transaksi beserta relasi dengan tabel produk
 $sql = "SELECT transaksi.id_transaksi, transaksi.jumlah, transaksi.total_harga, produk.nama_produk FROM transaksi JOIN produk ON transaksi.id_produk = produk.id_produk";
 $result = $conn->query($sql);
 

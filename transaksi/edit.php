@@ -22,33 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $total_harga = $_POST['total_harga'];
     $tanggal = $_POST['tanggal'];
 
-    // query transaksi
-    $queryTransaksi = $conn->query("SELECT jumlah FROM transaksi WHERE id_transaksi = $id");
-    $transaksi = $queryTransaksi->fetch_assoc();
-    $jumlah_awal = $transaksi['jumlah'];
-
-    // query stok
-    $queryStok = $conn->query("SELECT stok FROM produk WHERE id_produk = $id_produk");
-    $produk = $queryStok->fetch_assoc();
-    $stok_awal = $produk['stok'];
-
-    // Hitung selisih dan jumlahkan stok baru
-    $selisih = $jumlah_awal - $jumlah;   // jumlah awal produk, dikurangi jumlah baru hasil edit
-    $stok_baru = $stok_awal + $selisih;
-
-    if ($stok_baru < 0) {
-        $error = "Stok hanya tersedia  " . $produk['stok'];
+    // Kondisi Jumlah produk tidak boleh kurang dari 0
+    if ($jumlah <= 0) {
+        $error = "Jumlah tidak boleh kurang dari 0";
     } else {
-        // Update stok produk
-        $conn->query("UPDATE produk SET stok = $stok_baru WHERE id_produk = $id_produk");
 
-        // Update transaksi
-        $sql = "UPDATE transaksi SET id_produk = '$id_produk', jumlah = '$jumlah', total_harga = '$total_harga', tanggal = '$tanggal' WHERE id_transaksi = $id";
-        if ($conn->query(query: $sql) === TRUE) {
-            header("Location: index.php");
-            exit();
+        // query transaksi
+        $queryTransaksi = $conn->query("SELECT jumlah FROM transaksi WHERE id_transaksi = $id");
+        $transaksi = $queryTransaksi->fetch_assoc();
+        $jumlah_awal = $transaksi['jumlah'];
+
+        // query stok
+        $queryStok = $conn->query("SELECT stok FROM produk WHERE id_produk = $id_produk");
+        $produk = $queryStok->fetch_assoc();
+        $stok_awal = $produk['stok'];
+
+        // Hitung selisih dan jumlahkan stok baru
+        $selisih = $jumlah_awal - $jumlah;   // jumlah awal produk, dikurangi jumlah baru hasil edit
+        $stok_baru = $stok_awal + $selisih;
+
+        // Kondisi stok tidak lebih dari penjualan
+        if ($stok_baru < 0) {
+            $error = "Stok hanya tersedia  " . $produk['stok'];
         } else {
-            echo "Error: " . $conn->error;
+            
+            // Update stok produk
+            $conn->query("UPDATE produk SET stok = $stok_baru WHERE id_produk = $id_produk");
+
+            // Update transaksi
+            $sql = "UPDATE transaksi SET id_produk = '$id_produk', jumlah = '$jumlah', total_harga = '$total_harga', tanggal = '$tanggal' WHERE id_transaksi = $id";
+            if ($conn->query(query: $sql) === TRUE) {
+                header("Location: index.php");
+                exit();
+            } else {
+                echo "Error: " . $conn->error;
+            }
         }
     }
 }
@@ -62,9 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Transaksi</title>
-     <!-- Bootstrap CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <!-- Icon Font Awesome -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Icon Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 

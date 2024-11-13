@@ -8,12 +8,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stok = $_POST['stok'];
     $keterangan = $_POST['keterangan'];
 
-    $sql = "INSERT INTO produk (nama_produk, harga, stok, keterangan) VALUES ('$nama_produk', '$harga', '$stok', '$keterangan')";
-    if ($conn->query($sql) === TRUE) {
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+    // kondisi jika input harga dan stok kurang dari 0
+    if ($harga < 0 || $stok < 0) {
+        $error = "Harga atau Stok tidak boleh kurang dari 0";
+    } else{
+
+        // Insert Data
+        $sql = "INSERT INTO produk (nama_produk, harga, stok, keterangan) VALUES ('$nama_produk', '$harga', '$stok', '$keterangan')";
+        if ($conn->query($sql) === TRUE) {
+            header("Location: index.php");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 ?>
@@ -33,6 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container mt-5">
     <h2>Tambah Produk</h2>
+
+    <?php if(isset($error)) : ?>
+        <div class="alert alert-danger"><?= $error ?></div>
+    <?php endif;?>
+
     <form action="create.php" method="POST">
         <div class="mb-3">
             <label for="nama_produk" class="form-label">Nama Produk</label>

@@ -1,8 +1,10 @@
 <?php
 include 'db.php';
 
+// Query jumlah produk
 $produkCount = $conn->query("SELECT COUNT(*) AS total FROM produk")->fetch_assoc()['total'];
 
+// Query jumlah transaksi
 $transaksiCount = $conn->query("SELECT COUNT(*) AS total FROM transaksi")->fetch_assoc()['total'];
 
 // Query produk untuk Chart
@@ -10,16 +12,14 @@ $produkData = $conn->query("SELECT nama_produk, stok FROM produk");
 $produkLabels = [];
 $produkStok = [];
 
+// Input produk dan stok ke array dari database
 while ($row = $produkData->fetch_assoc()) {
     $produkLabels[] = $row['nama_produk'];
     $produkStok[] = $row['stok'];
 }
 
-// Query transaksi untuk Chart
-$query = "SELECT DATE_FORMAT(tanggal, '%Y-%m') AS bulan, SUM(total_harga) AS total 
-          FROM transaksi 
-          GROUP BY bulan 
-          ORDER BY bulan ASC";
+// Query transaksi untuk Chart, mengambil data setiap bulan
+$query = "SELECT DATE_FORMAT(tanggal, '%Y-%m') AS bulan, SUM(total_harga) AS total FROM transaksi GROUP BY bulan ORDER BY bulan ASC";
 $result = $conn->query($query);
 
 $data = [];
@@ -132,7 +132,6 @@ foreach ($data as $item) {
                 }
             }
         });
-
 
 
         // Grafik Transaksi
