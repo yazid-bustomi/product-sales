@@ -2,7 +2,7 @@
 include '../db.php';
 
 // Query tabel transaksi beserta relasi dengan tabel produk
-$sql = "SELECT transaksi.id_transaksi, transaksi.jumlah, transaksi.total_harga, produk.nama_produk FROM transaksi JOIN produk ON transaksi.id_produk = produk.id_produk";
+$sql = "SELECT transaksi.id_transaksi, transaksi.jumlah, transaksi.total_harga, produk.nama_produk, transaksi.tanggal FROM transaksi JOIN produk ON transaksi.id_produk = produk.id_produk";
 $result = $conn->query($sql);
 
 ?>
@@ -18,6 +18,13 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    <!-- Icon Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Data Table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+
+    <!-- Data table -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 </head>
 
 <body>
@@ -33,13 +40,14 @@ $result = $conn->query($sql);
             </div>
         </div>
 
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="tableTransaksi">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Produk</th>
                     <th>Jumlah</th>
                     <th>Total Harga</th>
+                    <th>Tanggal Penjualan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -51,6 +59,7 @@ $result = $conn->query($sql);
                         <td><?= $row['nama_produk'] ?></td> 
                         <td><?= $row['jumlah'] ?></td>
                         <td>Rp <?= number_format($row['total_harga'], '0', ',', '.')  ?></td>
+                        <td><?= $row['tanggal']?></td>
                         <td>
                             <a href="edit.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i> Edit</a>
                             <a href="delete.php?id=<?= $row['id_transaksi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')"><i class="fas fa-trash"></i> Hapus</a>
@@ -62,7 +71,14 @@ $result = $conn->query($sql);
         </table>
     </div>
 
+    <script>
+       $(document).ready(function(){
+        $('#tableTransaksi').DataTable();
+       });
+    </script>
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
