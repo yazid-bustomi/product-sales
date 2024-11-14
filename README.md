@@ -36,15 +36,25 @@ Aplikasi ini merupakan hasil dari **final test IT** untuk posisi **IT Staff** di
 ## Tampilan Aplikasi
 
 ### Halaman Dashboard
-
-![Dashboard Kampus] ()
+![Halaman Dashboard](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/dashboard.png?raw=true)
 
 ### Halaman Produk
    - **Index Produk**
-
+      ![Index Produk](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/index-produk.png?raw=true)
 
    - **Create Produk**
-
+      ![Create Produk](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/create-produk.png?raw=true)
 
    - **Edit Produk**
+      ![Edit Produk](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/edit-produk.png?raw=true)
+
+### Halaman Transaksi
+   - **Index Transaksi**
+   ![Index Transaksi](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/index-transaksi.png?raw=true)
+
+   - **Create Transaksi**
+   ![Create Transaksi](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/create-transaksi.png?raw=true)
+
+   - **Edit Transaksi**
+   ![Edit Transaksi](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/edit-transaksi.png?raw=true)
 
