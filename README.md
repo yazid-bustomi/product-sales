@@ -58,3 +58,5 @@ Aplikasi ini merupakan hasil dari **final test IT** untuk posisi **IT Staff** di
    - **Edit Transaksi**
    ![Edit Transaksi](https://github.com/yazid-bustomi/product-sales/blob/main/screnshoot/edit-transaksi.png?raw=true)
 
+## License
+MIT License - Bebas digunakan dan dimodifikasi untuk keperluan pribadi atau komersial.
