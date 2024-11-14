@@ -33,5 +33,18 @@ Aplikasi ini merupakan hasil dari **final test IT** untuk posisi **IT Staff** di
    - Pastikan Anda sudah menginstal web server dengan PHP dan MySQL.
    - Ikuti tahapan instalasi seperti yang dijelaskan di bagian **Instalasi** di atas.
 
-## License
-MIT License - Bebas digunakan dan dimodifikasi untuk keperluan pribadi atau komersial.
+## Tampilan Aplikasi
+
+### Halaman Dashboard
+
+![Dashboard Kampus] ()
+
+### Halaman Produk
+   - **Index Produk**
+
+
+   - **Create Produk**
+
+
+   - **Edit Produk**
+
